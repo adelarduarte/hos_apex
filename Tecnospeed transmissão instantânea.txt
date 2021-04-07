@@ -1,0 +1,42 @@
+Tecnospeed transmissão instantânea:
+
+ - Banrisul:
+ 	Necessita de certificado digital, cadastrado na página da tecnospeed;
+
+ - Unicred:
+ 	 Necesário cadastro com o banco e os seguintes campos:
+ 	  - código da estação: número da cooperativa;
+ 	  - api-id: será o código do beneficiário, interno da Unicred;
+ 	  - chave-key: código da api fornecida pela unicred;
+ 	  - segredo: nome de usuário e senha, no formato "usuario:senha". Ex.: "fulano:123"
+
+ - Sicredi:
+ 	Necessário cadastro e contrato junto ao banco. Informar os seguintes campos:
+ 	- segredo: chamada de Chave Master no sicredi. Deve ser gerada no internet banking, na opção "Código de Acesso"
+ 	- Chave de transação: Gerada a cada transmissão, com duração de 24h. A tecnospeed gera essa chave quando necessário.
+
+ - Bradesco:
+ 	Necessita de certificado digital, cadastrado na página da tecnospeed;
+
+
+ - Santander:
+  	Necessita de certificado digital, cadastrado na página da tecnospeed;
+
+ - Banco do Brasil: 
+ 		Todos os campos abaixo, fornecidos pelo banco.
+ 	  - api-id: 
+ 	  - chave-key: 
+ 	  - segredo: 
+
+ - Itaú:
+		Todos os campos abaixo, fornecidos pelo banco.
+ 	  - api-id: 
+ 	  - chave-key: Itau-key
+ 	  - segredo: 
+
+ - Caixa:
+ 		Necessário apenas a liberação de uso junto ao banco;
+
+ - 
+
+

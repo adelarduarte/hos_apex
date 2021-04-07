@@ -1,0 +1,459 @@
+/* Total em Dinheiro */
+#P157_DINHEIRO_TOTAL_CONTAINER {
+    height: 100px !important;
+}
+#P157_DINHEIRO_TOTAL_DISPLAY {
+    font-size:30px !important;
+    color: green !important;  
+    height: 80px !important;
+    padding-top: 48px !important;
+}
+#P157_DINHEIRO_INFORMADO_CONTAINER {
+    height: 100px !important;
+}
+#P157_DINHEIRO_INFORMADO_DISPLAY {
+    font-size:30px !important;
+    color: blue !important;  
+    height: 80px !important;
+    padding-top: 48px !important;
+}
+#P157_DINHEIRO_CONFERENCIA_CONTAINER {
+    height: 100px !important;
+}
+#P157_DINHEIRO_CONFERENCIA_DISPLAY {
+    font-size:30px !important;
+    color: green !important;  
+    height: 80px !important;
+    padding-top: 48px !important;
+}
+#P157_DINHEIRO_DIFERENCA_CONTAINER {
+    height: 100px !important;
+}
+#P157_DINHEIRO_DIFERENCA_DISPLAY {
+    font-size:30px !important;
+    color: orange !important;  
+    height: 80px !important;
+    padding-top: 48px !important;
+}
+
+#P157_DINHEIRO_CONFERENCIA {
+    height: 80px !important;
+    font-size:30px !important;
+}
+
+
+/* A Prazo */
+#P157_A_PRAZO_VALOR_CONTAINER {
+    height: 100px !important;
+}
+#P157_A_PRAZO_VALOR_DISPLAY {
+    font-size:30px !important;
+    color: green !important;  
+    height: 80px !important;
+    padding-top: 48px !important;
+}
+#P157_A_PRAZO_INFORMADO_CONTAINER {
+    height: 100px !important;
+}
+#P157_A_PRAZO_INFORMADO_DISPLAY {
+    font-size:30px !important;
+    color: blue !important;  
+    height: 80px !important;
+    padding-top: 48px !important;
+}
+#P157_A_PRAZO_CONFERENCIA_CONTAINER {
+    height: 100px !important;
+}
+#P157_A_PRAZO_CONFERENCIA_DISPLAY {
+    font-size:30px !important;
+    color: green !important;  
+    height: 80px !important;
+    padding-top: 48px !important;
+}
+#P157_A_PRAZO_DIFERENCA_CONTAINER {
+    height: 100px !important;
+}
+#P157_A_PRAZO_DIFERENCA_DISPLAY {
+    font-size:30px !important;
+    color: orange !important;  
+    height: 80px !important;
+    padding-top: 48px !important;
+}
+
+#P157_A_PRAZO_CONFERENCIA {
+    height: 80px !important;
+    font-size:30px !important;
+}
+
+
+
+/* Cartão */
+#P157_CARTAO_TOTAL_CONTAINER {
+    height: 100px !important;
+}
+#P157_CARTAO_TOTAL_DISPLAY {
+    font-size:30px !important;
+    color: green !important;  
+    height: 80px !important;
+    padding-top: 48px !important;
+}
+#P157_CARTAO_INFORMADO_CONTAINER {
+    height: 100px !important;
+}
+#P157_CARTAO_INFORMADO_DISPLAY {
+    font-size:30px !important;
+    color: blue !important;  
+    height: 80px !important;
+    padding-top: 48px !important;
+}
+#P157_CARTAO_CONFERENCIA_CONTAINER {
+    height: 100px !important;
+}
+#P157_CARTAO_CONFERENCIA_DISPLAY {
+    font-size:30px !important;
+    color: green !important;  
+    height: 80px !important;
+    padding-top: 48px !important;
+}
+#P157_CARTAO_DIFERENCA_CONTAINER {
+    height: 100px !important;
+}
+#P157_CARTAO_DIFERENCA_DISPLAY {
+    font-size:30px !important;
+    color: orange !important;  
+    height: 80px !important;
+    padding-top: 48px !important;
+}
+
+#P157_CARTAO_CONFERENCIA {
+    height: 80px !important;
+    font-size:30px !important;
+}
+
+
+
+/* Cheque */
+#P157_CHEQUE_TOTAL_CONTAINER {
+    height: 100px !important;
+}
+#P157_CHEQUE_TOTAL_DISPLAY {
+    font-size:30px !important;
+    color: green !important;  
+    height: 80px !important;
+    padding-top: 48px !important;
+}
+#P157_CHEQUE_INFORMADO_CONTAINER {
+    height: 100px !important;
+}
+#P157_CHEQUE_INFORMADO_DISPLAY {
+    font-size:30px !important;
+    color: blue !important;  
+    height: 80px !important;
+    padding-top: 48px !important;
+}
+#P157_CHEQUE_CONFERENCIA_CONTAINER {
+    height: 100px !important;
+}
+#P157_CHEQUE_CONFERENCIA_DISPLAY {
+    font-size:30px !important;
+    color: green !important;  
+    height: 80px !important;
+    padding-top: 48px !important;
+}
+#P157_CHEQUE_DIFERENCA_CONTAINER {
+    height: 100px !important;
+}
+#P157_CHEQUE_DIFERENCA_DISPLAY {
+    font-size:30px !important;
+    color: orange !important;  
+    height: 80px !important;
+    padding-top: 48px !important;
+}
+
+#P157_CHEQUE_CONFERENCIA {
+    height: 80px !important;
+    font-size:30px !important;
+}
+
+
+
+
+/* CHEQUE Pré */
+#P157_CHEQUE_PRE_TOTAL_CONTAINER {
+    height: 100px !important;
+}
+#P157_CHEQUE_PRE_TOTAL_DISPLAY {
+    font-size:30px !important;
+    color: green !important;  
+    height: 80px !important;
+    padding-top: 48px !important;
+}
+#P157_CHEQUE_PRE_INFORMADO_CONTAINER {
+    height: 100px !important;
+}
+#P157_CHEQUE_PRE_INFORMADO_DISPLAY {
+    font-size:30px !important;
+    color: blue !important;  
+    height: 80px !important;
+    padding-top: 48px !important;
+}
+#P157_CHEQUE_PRE_CONFERENCIA_CONTAINER {
+    height: 100px !important;
+}
+#P157_CHEQUE_PRE_CONFERENCIA_DISPLAY {
+    font-size:30px !important;
+    color: green !important;  
+    height: 80px !important;
+    padding-top: 48px !important;
+}
+#P157_CHEQUE_PRE_DIFERENCA_CONTAINER {
+    height: 100px !important;
+}
+#P157_CHEQUE_PRE_DIFERENCA_DISPLAY {
+    font-size:30px !important;
+    color: orange !important;  
+    height: 80px !important;
+    padding-top: 48px !important;
+}
+
+#P157_CHEQUE_PRE_CONFERENCIA {
+    height: 80px !important;
+    font-size:30px !important;
+}
+
+
+
+
+/* Convênio */
+#P157_CONVENIO_TOTAL_CONTAINER {
+    height: 100px !important;
+}
+#P157_CONVENIO_TOTAL_DISPLAY {
+    font-size:30px !important;
+    color: green !important;  
+    height: 80px !important;
+    padding-top: 48px !important;
+}
+#P157_CONVENIO_INFORMADO_CONTAINER {
+    height: 100px !important;
+}
+#P157_CONVENIO_INFORMADO_DISPLAY {
+    font-size:30px !important;
+    color: blue !important;  
+    height: 80px !important;
+    padding-top: 48px !important;
+}
+#P157_CONVENIO_CONFERENCIA_CONTAINER {
+    height: 100px !important;
+}
+#P157_CONVENIO_CONFERENCIA_DISPLAY {
+    font-size:30px !important;
+    color: green !important;  
+    height: 80px !important;
+    padding-top: 48px !important;
+}
+#P157_CONVENIO_DIFERENCA_CONTAINER {
+    height: 100px !important;
+}
+#P157_CONVENIO_DIFERENCA_DISPLAY {
+    font-size:30px !important;
+    color: orange !important;  
+    height: 80px !important;
+    padding-top: 48px !important;
+}
+
+#P157_CONVENIO_CONFERENCIA {
+    height: 80px !important;
+    font-size:30px !important;
+}
+
+
+
+
+
+
+
+/* PBM */
+#P157_OUTROS_PBM_TOTAL_CONTAINER {
+    height: 100px !important;
+}
+#P157_OUTROS_PBM_TOTAL_DISPLAY {
+    font-size:30px !important;
+    color: green !important;  
+    height: 80px !important;
+    padding-top: 48px !important;
+}
+#P157_OUTROS_PBM_INFORMADO_CONTAINER {
+    height: 100px !important;
+}
+#P157_OUTROS_PBM_INFORMADO_DISPLAY {
+    font-size:30px !important;
+    color: blue !important;  
+    height: 80px !important;
+    padding-top: 48px !important;
+}
+#P157_OUTROS_PBM_CONFERENCIA_CONTAINER {
+    height: 100px !important;
+}
+#P157_OUTROS_PBM_CONFERENCIA_DISPLAY {
+    font-size:30px !important;
+    color: green !important;  
+    height: 80px !important;
+    padding-top: 48px !important;
+}
+#P157_OUTROS_PBM_DIFERENCA_CONTAINER {
+    height: 100px !important;
+}
+#P157_OUTROS_PBM_DIFERENCA_DISPLAY {
+    font-size:30px !important;
+    color: orange !important;  
+    height: 80px !important;
+    padding-top: 48px !important;
+}
+
+#P157_OUTROS_PBM_CONFERENCIA {
+    height: 80px !important;
+    font-size:30px !important;
+}
+
+
+
+
+/* Pagamento com Crédito */
+#P157_PAGAMENTO_CREDITO_TOTAL_CONTAINER {
+    height: 100px !important;
+}
+#P157_PAGAMENTO_CREDITO_TOTAL_DISPLAY {
+    font-size:30px !important;
+    color: green !important;  
+    height: 80px !important;
+    padding-top: 48px !important;
+}
+#P157_PAGAMENTO_CREDITO_INFORMADO_CONTAINER {
+    height: 100px !important;
+}
+#P157_PAGAMENTO_CREDITO_INFORMADO_DISPLAY {
+    font-size:30px !important;
+    color: blue !important;  
+    height: 80px !important;
+    padding-top: 48px !important;
+}
+#P157_PAGAMENTO_CREDITO_CONFERENCIA_CONTAINER {
+    height: 100px !important;
+}
+#P157_PAGAMENTO_CREDITO_CONFERENCIA_DISPLAY {
+    font-size:30px !important;
+    color: green !important;  
+    height: 80px !important;
+    padding-top: 48px !important;
+}
+#P157_PAGAMENTO_CREDITO_DIFERENCA_CONTAINER {
+    height: 100px !important;
+}
+#P157_PAGAMENTO_CREDITO_DIFERENCA_DISPLAY {
+    font-size:30px !important;
+    color: orange !important;  
+    height: 80px !important;
+    padding-top: 48px !important;
+}
+
+#P157_PAGAMENTO_CREDITO_CONFERENCIA {
+    height: 80px !important;
+    font-size:30px !important;
+}
+
+
+
+
+/* Outros */
+#P157_OUTROS_TOTAL_CONTAINER {
+    height: 100px !important;
+}
+#P157_OUTROS_TOTAL_DISPLAY {
+    font-size:30px !important;
+    color: green !important;  
+    height: 80px !important;
+    padding-top: 48px !important;
+}
+#P157_OUTROS_INFORMADO_CONTAINER {
+    height: 100px !important;
+}
+#P157_OUTROS_INFORMADO_DISPLAY {
+    font-size:30px !important;
+    color: blue !important;  
+    height: 80px !important;
+    padding-top: 48px !important;
+}
+#P157_OUTROS_CONFERENCIA_CONTAINER {
+    height: 100px !important;
+}
+#P157_OUTROS_CONFERENCIA_DISPLAY {
+    font-size:30px !important;
+    color: green !important;  
+    height: 80px !important;
+    padding-top: 48px !important;
+}
+#P157_OUTROS_DIFERENCA_CONTAINER {
+    height: 100px !important;
+}
+#P157_OUTROS_DIFERENCA_DISPLAY {
+    font-size:30px !important;
+    color: orange !important;  
+    height: 80px !important;
+    padding-top: 48px !important;
+}
+
+#P157_OUTROS_CONFERENCIA {
+    height: 80px !important;
+    font-size:30px !important;
+}
+
+
+
+
+/* Bancário */
+#P157_BANCARIO_TOTAL_CONTAINER {
+    height: 100px !important;
+}
+#P157_BANCARIO_TOTAL_DISPLAY {
+    font-size:30px !important;
+    color: green !important;  
+    height: 80px !important;
+    padding-top: 48px !important;
+}
+#P157_BANCARIO_INFORMADO_CONTAINER {
+    height: 100px !important;
+}
+#P157_BANCARIO_INFORMADO_DISPLAY {
+    font-size:30px !important;
+    color: blue !important;  
+    height: 80px !important;
+    padding-top: 48px !important;
+}
+#P157_BANCARIO_CONFERENCIA_CONTAINER {
+    height: 100px !important;
+}
+#P157_BANCARIO_CONFERENCIA_DISPLAY {
+    font-size:30px !important;
+    color: green !important;  
+    height: 80px !important;
+    padding-top: 48px !important;
+}
+#P157_BANCARIO_DIFERENCA_CONTAINER {
+    height: 100px !important;
+}
+#P157_BANCARIO_DIFERENCA_DISPLAY {
+    font-size:30px !important;
+    color: orange !important;  
+    height: 80px !important;
+    padding-top: 48px !important;
+}
+
+#P157_BANCARIO_CONFERENCIA {
+    height: 80px !important;
+    font-size:30px !important;
+}
+
+
+
+

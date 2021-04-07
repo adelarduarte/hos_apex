@@ -1,0 +1,53 @@
+{
+    "data": "03-07-2020",
+    "hora": "03-07-2020 10:12:00",
+    "numero_caixa": 115,
+    "ecf": 65,
+    "serie": 1,
+    "numero_documento": 4444,
+    "numero_venda": 123,
+    "tipo_lancamento_financeiro": "VV",
+    "cliente": {
+        "codigo_unico": "fsrgagfsregaf",
+        "nome": "Fulano de Tal",
+        "cpf": null,
+        "cnpj": null,
+        "telefone": null
+    },
+    "dinheiro_valor": 120.50,
+    "cheque_valor": 0.00,
+    "cartao_valor": 0.00,
+    "aprazo_valor": 0.00,
+    "convenio_valor": 0.00,
+    "outros_valor": 0.00,
+    "boleto_valor": 0.00,
+    "pagamento_credito_valor": 0.00,
+    "teleentrega": "Não",
+    "crediarios": [],
+    "vencimento": "10-07-2020",
+    "caixa_retorno": null,
+    "motivo_sangria_suprimento": null,
+    "destino_sangria_suprimento": null,
+    "pbm": null,
+    "numero_parcelas": 1,
+    "cartao": null,
+    "convenio": null,
+    "cheque": null,
+    "recebimentos_crediario": [],
+    "itens": [
+        {
+            "codigo_barras": 8889898999,
+            "quantidade": 1,
+            "preco_unitario": 20.00,
+            "desconto_percentual": 0.00,
+            "desconto_valor": 0.00
+        },
+        {
+            "codigo_barras": 8889898777,
+            "quantidade": 1,
+            "preco_unitario": 10.00,
+            "desconto_percentual": 10.00,
+            "desconto_valor": 1.00
+        }
+    ]    
+}

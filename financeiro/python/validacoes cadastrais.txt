@@ -1,0 +1,75 @@
+validacoes cadastrais
+
+tipo		cadastro					descricao							status			empresa
+boletos		conta financeira			Para emitir boletos...				pendente		1
+boletos		convênio bancário			Você encontra o cadastro de...		pendente		1
+
+notas		cadastro completo empresa
+notas		impostos na empresa
+notas		usuario e senha prefeit.
+notas		certificado digital
+
+
+
+Ver a possibilidade de verificar os dados
+necessários, através do serviço em python, 
+lendo os requisitos de um arquivo json
+
+O serviço só avançaria com os requisitos atendidos 
+para cada empresa.
+para evitar verificar todas as vezes, marcar a empresa
+como ok, apta, liberada, etc.
+Quando houver alterações no apex, limpar esse campo
+para fazer com que o serviço em python volte a verificar
+a empresa.
+
+Criar serviço que elimine notificações anteriores a 
+data atual, com status diferente de "Erro".
+
+-->>
+Geração de Boletos:
+ - Mudar tabela de contas a receber, para informar conta e convênio de cobrança;
+ - Mudar a tabela de contas a receber, para marcar títulos já enviados (usar código externo);
+ - Marcar os títulos a serem enviados, informando a conta e convênio;
+ - Ler e enviar via serviço em python;
+
+
+
+https://atendimento.tecnospeed.com.br/hc/pt-br/articles/360006232893-Incluindo-um-Boleto
+
+Passos após criar o boleto:
+https://atendimento.tecnospeed.com.br/hc/pt-br/articles/360006189314-Solicitando-o-PDF
+
+https://atendimento.tecnospeed.com.br/hc/pt-br/articles/360006189634-Consultando-o-protocolo-da-solicitação-do-PDF
+
+Necessário apenas se as notificações estiverem desativadas
+https://atendimento.tecnospeed.com.br/hc/pt-br/articles/360006264693-Solicitando-envio-de-e-mail-para-o-Sacado
+
+solicitação de transmissão automática com tecnospeed:
+https://atendimento.tecnospeed.com.br/hc/pt-br/articles/360015378694-Como-solicitar-a-Transmissão-Automática
+
+
+Descarte de boleto, que retornou com falha.
+https://atendimento.tecnospeed.com.br/hc/pt-br/articles/360006197894-Descartando-um-boleto
+
+Solicitar geração de arquivo de remessa de baixa de boletos. usando a trasmissão automática, apenas
+consultamos o resultado da solicitação. A remessa e o retorno são feitos pela tecnospeed.
+https://atendimento.tecnospeed.com.br/hc/pt-br/articles/360006195654-Solicitando-o-arquivo-de-remessa-de-baixa
+
+
+Consulta da solicitação de baixa de titulos:
+https://atendimento.tecnospeed.com.br/hc/pt-br/articles/360006270773-Realizando-a-consulta-da-remessa-de-baixa-
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,28 @@
+// Exemplo payload de contas a pagar
+
+// url:
+// http://dev.hos.com.br:8080/ords/hos/financas/pagar/:empresa_api_key
+
+
+// json body
+{
+ 	"documento": "43543",
+	"data_emissao": "02-09-2020",
+ 	"data_vencimento": "02-10-2020",
+ 	"valor": 100.00,
+ 	"descricao": "Compras de medicamentos",
+ 	"fornecedor": {
+ 		"cnpj": "089873737373",
+ 		"cpf": "6153872573",
+ 		"razao_social": "Empresa Teste",
+ 		"estado": "RS",
+ 		"cidade": "Porto Alegre",
+ 		"email": "fulano@eemail.com"
+ 	}
+}
+
+// Centro de custos e categorias de resultados, 
+// buscar nas preferências do fornecedor.
+// Caso não existam, buscar nas preferências da empresa.
+
+

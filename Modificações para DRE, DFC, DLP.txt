@@ -1,0 +1,71 @@
+Modificações para DRE, DFC, DLP
+
+
+Contas a Receber (Competência) -->> Devolução Parcial
+Valor			saldo			recebido			valor_dre
+100				100									100
+50				50									100 -->> Modificado por Dev, Canc
+
+
+
+Contas a Receber (Competência) -->> Devolução Total
+Valor			saldo			recebido			valor_dre
+100				100									100
+100				100									100 -->> Modificado por Dev, Desc, Canc
+															Mudar status, para não considerar
+															no Contas a Receber, mas considerar
+															no DRE
+
+
+** Descontos devem ser apenas lançados como descontos concedidos,
+com o fornecedor criado para isso, e a categoria correta.
+
+
+
+Contas Recebidas (Caixa) -->> Dev Parcial
+Valor			saldo			recebido			valor_dre
+100				100									100
+50				50									100 -->> Modificado por Dev, Canc
+50				0				50					100 (somar juros, dar desconto, se houver)
+
+
+Contas Recebidas (Caixa) -->> Dev Total
+Valor			saldo			recebido			valor_dre
+100				100									100
+100				100									100	-->> Modificado por Dev, Desc, Canc
+															 É preciso lançar no contas recebidas
+															 mesmo assim, com status diferente, 
+															 para ser ignorado no financeiro (telas, gráficos e relatório), mas considerado
+															 no DRE
+
+
+
+** Verificar:
+	- Formulários;
+	- Triggers;
+	- Procedimentos;
+	- Conciliação;
+
+	Ou seja, todos os processos que podem 
+	gerar ou liquidar títulos no contas a receber.
+
+
+** Modificar:
+	- Todos os procedimentos com prefixo TPL,
+		que calculam partes da DRE, no que diz
+		respeito a cálculos envolvendo contas a 
+		receber e recebidas.
+		Contas a pagar e pagas, continuam do 
+		mesmo modo.
+
+
+
+
+
+
+
+
+
+
+
+

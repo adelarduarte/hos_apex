@@ -1,0 +1,139 @@
+1. Não tem a coluna conferido;
+OK
+
+2. Coluna Tipo Lançto deve ter nome Operação. E os valores dessa coluna devem estar traduzidos, exemplo CC = Cancelamento. VV: Venda.
+OK
+
+
+3. Esconder as colunas Equipamento e Tipo;
+OK
+
+
+4. Cancelamento:
+a) Existem registros de cancelamento sem o registro da venda. Casos onde o cancelamento se dá durante a venda. Com isso está subtraindo do caixa o valor da venda, mas não tem a entrada, logo, nos totais fica um valor a menor.
+	- Nossa sugestão é que nesses casos sejam gerados dois registros um da venda e o outro cancelamento para que se anulem;
+
+b) Quando tenho a venda e em seguida faço o cancelamento, não está constando o cancelamento no Financeiro, com isso, fica um valor a maior no caixa;
+	- Vai vir do Farma um registro de cancelamento, querendo fazer um update na venda original. Entendo que o ideal é criar um novo registro de cancelamento. Dessa forma teremos dois registros o da venda e em baixo o de cancelamento, tendo a entrada e em seguida a saída do dinheiro.
+-- O cancelamento sempre será no caixa de origem, o Farma não permite cancelar venda de outro caixa.
+
+*** Entendo que se as soluções propostas acima forem aceitas, não há nada a fazer no financeiro...
+
+
+
+
+5. Nas vendas com cartão não tem o botão alterar de modo a permitir os ajustes. Deve permitir.
+OK
+
+
+
+6. Tele-Entrega
+a) Quando tele-entrega pendente tem que ter, conforme projeto, uma linha de débito, para ter clareza que teve a venda naquele valor (essa parte ok) e deve ter uma linha embaixo com o débito desse valor pois ainda não entrou no caixa. Quando acertado (se no mesmo caixa) essa linha deve ser excluída.
+
+b) Estorno de Tele-Entrega: Acertei a tele-entrega, mas fiz errado. Ai estorno a tele-entrega, ela volta para pendente. No financeiro deve gerar uma linha embaixo do acerto com o estorno para se anularem. Luizinho passará a enviar o estorno.
+
+**** 
+	teleentrega = 'SIM' e caixa_retorno is null
+	Detalhe:
+		A teleentrega pode ser venda a vida, a prazo, cartão, cheque, etc...
+		É preciso verificar em todos os tipos de movimentos possíveis
+		para gerar a segunda linha com valor negativo...
+
+***
+	** Verificar a linha débito.
+	OK
+
+	** No acerto é possível mudar a forma de pagamento.
+
+
+
+
+7. Sangria
+a) O problema de estar somando a Sangria ao invés de subtrair segue ocorrendo. Sagria é saída de caixa, logo deve subtrair e não somar.
+*** OK
+
+b) No alterar deve permitir:
+	1. Vincular a uma conta a pagar ou lançar uma nova;
+	2. Informar em qual conta o dinheiro foi depositado.
+*** Gabriel
+
+
+8. PBM - Outros
+a) O registro da venda está indo em PBM e o valor pago está totalizando em Outros. Deveria aparecer tanto total como detalhamento em PBM. Ou sumimos com o grupo PBM e deixamos tudo em outros.
+OK - Eliminado o painel de PBM.
+
+
+
+9. Verificar valor da operação, está divergente para pagamentos parciais.
+a) - Conta de 50$ -> Pago 25$ -> Valor = 25 e valor da operação 50$ e não os 25$ como esta sendo gravado hoje.
+*** O valor original da operação está vindo no cupom?
+*** Não é viável buscar no banco do financeiro web apenas
+    para incluir essa informação. A coluna de valor da operação
+    atualmente não existe. É apenas resultado de um cálculo.
+
+
+
+10. Quadro Crédito - Colocar observação sobre ser um dado informativo.
+a) Créditos gerados - Apenas informativo sem relevancia no valor do caixa.
+b) Quadro:
+	1- Total de crédito gerados
+	2- Total créditos utilizados
+	3- Saldo Informativo dos créditos -- Não
+c) Lista dos créditos utilizados e gerados.
+** Utilizados já existe
+** Gerados, só se vier do Farma com algum tipo de lançamento identificando
+
+
+
+11- Tratar pagamento com PIX, atualmente no farma ele grava em cartão, porém terá que ser verficado para setarmos no WEB para bancário 
+** Aguardando ver como vem do Farma
+** A princípio, deveria ser uma adquirente, uma bandeira e um cartão, identificados como PIX
+
+
+12- REFERENTE AO RELATÓRIO DO CAIXA (GABRIEL) - 
+A) TOTALIZADORES GERAIS DE CAIXA
+
+13- Verificar recebimento de cheques que está entrando todos com emissão própria 
+
+14- Outros - Totalizador:
+	a) Não está subtraindo devolução de PBM (Outros), e esta duplicando o valor da operação
+
+
+15- Ao salvar conferência, se teve diferença para +/-, aparecer 
+
+
+
+
+
+
+
+
+_______
+
+Recebimento Farmácia Popular
+1. Valor operação está errado, está somando o valor pbm;
+2. Está gerando dois registros, um aberto e um recebido. Deve ser apenas um registro Aberto;
+3. Quando cancelado no Farma a operação junto ao Datasus (FC > Vendas > Autorização PBM > Farmácia Popular > Cancelamento) deve subir um registro para o financeiro para atualizar essa conta a receber de aberta para cancelado, visto que não receberei este valor do Datasus.
+
+4. Ajustar data de vencimento, tudo que vende em um mês o vencimento é dia 10 do mês seguinte;
+
+5. Deve ser possível acertar em lote. Por exemplo, filtro tudo que o vencimento é 10/01 e recebo. 
+Atualmente o recebimento está individual o que não faz sentido, pois o Datasus paga "um bolo" e não venda a venda.
+
+6. Tratar no recebimento o lancamen CFP, como cancelamento farmácia popular e alterar o status para cancelado,  pago.
+
+____
+
+Recebimento Cartão
+
+1. Atualmente só está sendo possível dar como liquidado um a um. Tem que ser possível, como já é no farma, definir períodos e afins e receber em lote.
+
+2. Não está somando o pagamento de crediário feito a cartão no totalizador.
+
+
+
+
+Recebimento de crediario (Boleto bancário)
+
+1. Aparece no totalizador o valor do recebimento, porém não lista a venda.
+

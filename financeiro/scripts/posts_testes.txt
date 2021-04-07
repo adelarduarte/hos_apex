@@ -1,0 +1,57 @@
+curl --location --request POST 'http://dev.hos.com.br:8080/ords/hos/financas/caixa/qumlkcgggefmoerlmf' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "numero_caixa": 121,
+    "data_inicial": "10-07-2020",
+    "hora_inicial": "10-07-2020 08:25:00",
+    "valor_inicial": 380.00,
+    "data_final": null,
+    "hora_final": null,
+    "valor_final": 0,
+    "dinheiro": 0,
+    "troco": 0,
+    "nome_operador": "John Snow"
+}
+'
+
+
+
+
+curl --location --request POST 'http://dev.hos.com.br:8080/ords/hos/financas/cupons/qumlkcgggefmoerlmf' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "data": "03-07-2020",
+    "hora": "03-07-2020 10:12:00",
+    "numero_caixa": 115,
+    "ecf": 65,
+    "serie": 1,
+    "numero_documento": 4444,
+    "numero_venda": 123,
+    "tipo_lancamento_financeiro": "VV",
+    "cliente": {
+        "codigo_unico": "fsrgagfsregaf",
+        "nome": "Fulano de Tal",
+        "cpf": null,
+        "cnpj": null,
+        "telefone": null
+    },
+    "dinheiro_valor": 120.50,
+    "cheque_valor": 0.00,
+    "cartao_valor": 0.00,
+    "aprazo_valor": 0.00,
+    "convenio_valor": 0.00,
+    "outros_valor": 0.00,
+    "boleto_valor": 0.00,
+    "pagamento_credito_valor": 0.00,
+    "teleentrega": "Não",
+    "vencimento": "10-07-2020",
+    "caixa_retorno": null,
+    "motivo_sangria_suprimento": null,
+    "destino_sangria_suprimento": null,
+    "pbm": null,
+    "numero_parcelas": 1,
+    "cartao": null,
+    "convenio": null,
+    "cheque": null,
+    "recebimentos_crediario": []
+}'

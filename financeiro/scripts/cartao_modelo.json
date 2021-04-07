@@ -1,0 +1,11 @@
+    {
+        "cartao_nome": "Visa Débito",
+        "cartao_operacao": "Débito",
+        "cartao_bandeira": "VISA",
+        "cartao_adquirente": "Cielo",
+        "parcela_inicial": 1,
+        "parcela_final": 6,
+        "dias_recebimento": 40,
+        "taxa_fixa": 2.4,
+        "taxa_parcela": 1.0
+    }

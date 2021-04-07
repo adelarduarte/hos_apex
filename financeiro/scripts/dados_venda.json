@@ -1,0 +1,181 @@
+// Lançamento do Caixa, abertura e fechamento
+// Abertura e fechamento precisam ser informados em dois lançamentos
+// para a web. Atualmente, é apenas um lançamento que é atualizado no fechamento
+{
+	"numero_caixa": 110,
+	"empresa_api_key": "hhdy453gr5",
+	"data_inicial": "01-07-2020",
+	"hora_inicial": "01-07-2020 08:00:00",
+	"valor_inicial": 120.50,
+	"data_final": "01-07-2020",
+	"hora_final": "01-07-2020 15:00:00",
+	"valor_final": 560.54,
+	"dinheiro": 360.54,
+	"troco": 200.00,
+	"nome_operador": "Fulano",
+	"dinheiro_informado": 120.50,
+	"cheque_informado": 0.00,
+	"cartao_informado": 0.00, // Quando for dois cartões, vão precisar ler da vendastef e enviar N vezes a venda
+	"aprazo_informado": 0.00,
+	"convenio_informado": 0.00,
+	"outros_informado": 0.00,
+	"boleto_informado": 0.00,
+	"pagamento_credito_informado": 555,
+
+}
+
+
+
+// lançamentos de cupons
+{
+	"empresa_api_key": "gsrujdgetsahsd",  // Será informada na url do serviço
+	"data": "10-07-2020",
+	"hora": "12:12:00",
+	"numero_caixa": 444,
+	"ecf": 65,
+	"serie":1,
+	"numero_documento": 4444,
+	"numero_venda": 123, // É necessário para realizar as ligações de teleentrega (lancamen TV)
+	"tipo_lancamento_financeiro": "???", // conforme tabela no final
+	"cliente": {
+		"codigo_unico": "fsrgagfsregaf", // Usar 'Consumidor Final' quando não identificado
+		"nome": "Fulano de Tal",
+		"cpf": null,
+		"cnpj": null,
+		"telefone": null
+	},
+	"valor_dinheiro": 120.50,
+	"valor_outros": 120.50,
+	"valor_boleto": 110.99,
+	"valor_pagamento_credito": 555,
+	"teleentrega": "SIM", // Vinculado ao lancamento TV (referente ao acerto com o entregador).
+	"crediarios": [
+				{"vencimentos": "01-10-2020", 
+				"valor": 100.00 },
+				{"vencimentos": "01-11-2020", 
+				"valor": 100.00 }					
+			],
+	"caixa_retorno": 123, // Campo originado na tabela ENTREGAS. Se o nr_caixa for diferente do caixa_retorno, este valor não poderá ser esperado no caixa de origem.
+	"motivo_sangria_suprimento": "SANGRIA",
+	"destino_sangria_suprimento": "Pagamento",
+	"pbm": "FARMACIA_POPULAR",
+	"cartao": [{
+		"nome": "Visa Cielo",
+		"operacao": "Débito",
+		"bandeira": "Visa",
+		"adquirente": "Cielo",
+		"parcelas": 1,
+		"nsu": 1111111,
+		"valor": 0.00
+	}],
+	"convenio": [{
+		"cnpj_cpf": "00000",
+		"nome": "EmpresaTal",
+		"vencimento": "01-10-2020", 
+		"valor": 0.00
+	}], 
+	"cheque": [{
+		"codigo_banco": "001",
+		"Agencia": "455",
+		"numero_conta": "123",
+		"numero_cheque": "1211",
+		"numero_serie": "444",
+		"titular": "Anderson",
+		"data_cheque": "10-07-2020",
+		"bom_para": null,
+		"valor": 0.00
+	}],
+	"recebimentos_crediario": [
+		{
+			"cupom": 123,  
+			"valor": 100.00,  // Número do documento
+			"juros": 10,
+			"multa": 0,
+			"acrescimo": 0,
+			"desconto": 0
+
+		}, 
+		{
+			"cupom": 334,
+			"valor": 110.50,
+			"juros": 0,
+			"multa": 0,
+			"acrescimo": 20,
+			"desconto": 0
+		}
+	],
+	"itens": [{
+		"codigo_barras": 8889898999,
+		"quantidade": 9999,
+		"preco_unitario": 999.99,
+		"desconto_percentual": 999.99,
+		"desconto_valor": 999.99
+	}]
+}
+
+
+// Consulta limite de crédito  -- POST
+{ 
+	"cliente": "fsrgagfsregaf"  ,// Código único
+}
+
+
+// Retorno
+{
+	"Cliente": "Fulano de tal",
+	"limite_credito": 1200.00,
+	"saldo_credito": 320.50,
+	"inadimplente": "Sim",
+	"liberado": "Não",
+	"atrasos": [
+		{
+				"cupom": 123,
+			"vencimento": "10-09-2020",
+			"valor": 65.50
+		},
+		{
+			"cupom": 342,
+			"vencimento": "23-09-2020",
+			"valor": 40.12
+		}		
+	]
+}
+
+
+
+
+
+// A sangria, quando for do tipo Pagamento, vai gerar um movimento financeiro não conciliado (conciliação posterior).
+
+Conta_a_pagar (Entradas de notas)
+
+CAIXA.LANCAMEN
+VV	VENDA A VISTA	C
+VC	VENDA POR CONVENIO	C
+VR	VENDA POR CREDIARIO	C
+CV	CANCELAMENTO VENDA	0
+AC	ABERTURA DE CAIXA	0
+FC	FECHAMENTO DE CAIXA	0
+SA	SANGRIA DE CAIXA	D
+SU	SUPRIMENTO DE CAIXA	C
+RC	RECEBIMENTO CONVENIO	C - RECARGA CELULAR
+VP	VENDA A PRAZO	C
+TV	TELE-VENDA	C
+PG	PAGAMENTO DE CONTA	C
+DV	DEVOLUCAO DE VENDA VISTA	D
+DF	DEVOLUCAO DE COMPRA	0
+CC	CUPOM CANCELADO	0
+CP	CHEQUE PRE	C
+CH	CHEQUE	C
+CR	CARTAO	C
+AU	AUTENTICACAO	0
+TS	TRANS SAIDA	D
+TE	TRANS ENTRADA	C
+DC	DEVOLUCAO CONVENIO	0
+DP	DEVOLUCAO A PRAZO	0
+CI	CANCELAMENTO ITEM	0
+PB	PAGAMENTO BANCARIO	C
+EX	EXTORNOS		    D
+ES  ENTRADA DE SINAL
+EB  ENTRADA DE SINAL VIA BANCO
+LANCAMEN = 'PG'-- Recebimento Prazo / Convênio

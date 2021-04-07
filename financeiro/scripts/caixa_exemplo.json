@@ -1,0 +1,21 @@
+{
+    "numero_caixa": 110,
+    "data_inicial": "03-07-2020",
+    "hora_inicial": "03-07-2020 09:15:00",
+    "valor_inicial": 150.00,
+    "data_final": "03-07-2020",
+    "hora_final": "03-07-2020 11:48:00",
+    "valor_final": 430.00,
+    "dinheiro": 300.00,
+    "troco": 130.00,
+    "nome_operador": "Maria Clara",
+    "dinheiro_informado": 120.50,
+    "cheque_informado": 0.00,
+    "cartao_informado": 0.00, 
+    "aprazo_informado": 0.00,
+    "convenio_informado": 0.00,
+    "outros_informado": 0.00,
+    "boleto_informado": 0.00,
+    "pagamento_credito_informado": 555    
+}
+
