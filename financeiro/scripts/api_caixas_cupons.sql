@@ -25,6 +25,7 @@ Declare
     l_cartao_valor              number;
     l_cartao_total              number;
     l_cartao_parcelas           number;
+    l_valor_pix                 number;
 
     l_convenio_id               number;
     l_convenio_cnpj_cpf         varchar2(20);
@@ -199,16 +200,25 @@ Begin
         if l_dados_ok then
 
             -->> Transformar de cartão PIX para movimento bancário
-            for i in 1 .. apex_json.get_count(p_path => 'cartao') LOOP
-                l_cartao_nome       := APEX_JSON.get_varchar2(p_path => 'cartao[%d].nome', p0 => i);
+                l_valor_pix := l_caixas_cupons.cartao_valor;
 
-                if lower(l_cartao_nome) = 'pix' then
-                    l_caixas_cupons.tipo_lancamento_financeiro := 'PIX';
-                    l_caixas_cupons.outros_valor               := l_caixas_cupons.cartao_valor;
-                    l_caixas_cupons.cartao_valor               := 0;
-                end if;
+                for i in 1 .. apex_json.get_count(p_path => 'cartao') LOOP
 
-            end loop;
+                    l_cartao_nome       := APEX_JSON.get_varchar2(p_path => 'cartao[%d].nome', p0 => i);
+
+                    if lower(l_cartao_nome) = 'pix' then
+                        if lower(l_caixas_cupons.tipo_lancamento_financeiro) = 'cc' then
+                            l_caixas_cupons.tipo_lancamento_financeiro := 'CC';
+                            l_caixas_cupons.boleto_valor               := l_valor_pix;
+                            l_caixas_cupons.cartao_valor               := 0;
+                        else
+                            l_caixas_cupons.tipo_lancamento_financeiro := 'PIX';
+                            l_caixas_cupons.outros_valor               := l_valor_pix;
+                            l_caixas_cupons.cartao_valor               := 0;
+                        end if;
+                    end if;
+
+                end loop;
 
 
             if lower(l_caixas_cupons.teleentrega) = 'sim' then 
@@ -246,8 +256,8 @@ Begin
 
 
             -->> Tratamento de cartões
-            -->> Ignorar lançamento de for PIX
-            if lower(l_caixas_cupons.tipo_lancamento_financeiro) = 'pix' then
+            -->> Ignorar lançamento se for PIX
+            if lower(l_caixas_cupons.tipo_lancamento_financeiro) <> 'pix' then
                 for i in 1 .. apex_json.get_count(p_path => 'cartao') LOOP
                     l_cartao_nome       := APEX_JSON.get_varchar2(p_path => 'cartao[%d].nome', p0 => i);
                     l_cartao_operacao   := APEX_JSON.get_varchar2(p_path => 'cartao[%d].operacao', p0 => i);
@@ -501,4 +511,3 @@ Begin
     end if;
 
 End;
-

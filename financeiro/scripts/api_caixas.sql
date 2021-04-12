@@ -98,7 +98,7 @@ Begin
                 select id 
                 into l_caixa_id
                 from caixas
-                where numero_caixa = l_caixas.numero
+                where numero_caixa = l_caixas.numero_caixa
                 and empresa_id = l_empresa_id;
 
                 l_caixas_cupons.id                         := null;
@@ -106,6 +106,7 @@ Begin
                 l_caixas_cupons.hora                       := l_caixas.hora_inicial;
                 l_caixas_cupons.numero_caixa               := l_caixas.numero_caixa;
                 l_caixas_cupons.tipo_lancamento_financeiro := 'FC';
+                l_caixas_cupons.numero_documento           := 99999;
                 l_caixas_cupons.cliente_id                 := l_cliente_id;
                 l_caixas_cupons.dinheiro_valor             := l_caixas.troco;
                 l_caixas_cupons.caixa_id                   := l_caixa_id;
