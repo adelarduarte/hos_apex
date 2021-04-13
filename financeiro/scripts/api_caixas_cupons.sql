@@ -208,7 +208,7 @@ Begin
 
                     if lower(l_cartao_nome) = 'pix' then
                         if lower(l_caixas_cupons.tipo_lancamento_financeiro) = 'cc' then
-                            l_caixas_cupons.tipo_lancamento_financeiro := 'CC';
+                            l_caixas_cupons.tipo_lancamento_financeiro := 'CPIX';
                             l_caixas_cupons.boleto_valor               := l_valor_pix;
                             l_caixas_cupons.cartao_valor               := 0;
                         else
