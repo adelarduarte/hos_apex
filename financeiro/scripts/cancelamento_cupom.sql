@@ -1,7 +1,8 @@
 create or replace procedure "CANCELAMENTO_CUPOM" (
-	p_empresa_id 			IN 	number,
-	p_numero_documento 		IN  varchar2,
-	p_cupom_cancelado_id 	IN  number
+	p_empresa_id 			     IN  number,
+	p_numero_documento 		     IN  varchar2,
+	p_cupom_cancelado_id 	     IN  number,
+    p_tipo_lancamento_financeiro IN  varchar2
 )
 as
 	l_centro_cancelamento_id		number;
@@ -55,6 +56,23 @@ Begin
 		from caixas_cupons
 		where id = p_cupom_cancelado_id;
 
+		-->> Setar conta financeira como 'PIX'
+		--   ou caixa, se não houver conta PIX
+		Begin
+			select id
+			into l_conta_financeira_id
+			from contas_financeiras
+			where conta_pix = 'Sim'
+			and empresa_id = p_empresa_id;
+		Exception
+			when no_data_found then
+				select id
+				into l_conta_financeira_id
+				from contas_financeiras
+				where id_interno = 1
+				and empresa_id = p_empresa_id;
+		end;
+
 		-->> Buscar status de título cancelado
 		select id
 		into l_status_cancelado_id
@@ -74,7 +92,6 @@ Begin
 		where empresa_id = p_empresa_id;
 
 
-
 		-->> Buscar forma de pagamento 'Dinheiro'
 		select id
 		into l_forma_pagamento_id
@@ -83,21 +100,15 @@ Begin
 		and empresa_id = p_empresa_id;
 
 
-		-->> Buscar fornecedor "Vendas Canceladas"
-		--  O processo deve cadastrar, se não existir
-		l_fornecedor_id := verificar_fornecedor(
-				p_empresa_id => p_empresa_id,
-				p_nome => 'Vendas Canceladas'
-			);
-
-
 		-->> Localizar contas a receber, e mudar status para cancelado
 	   l_total_cancelado := l_cupom_cancelado_rec.dinheiro_valor 
 						  + l_cupom_cancelado_rec.cheque_valor
+                          + l_cupom_cancelado_rec.cheque_pre_valor
 						  + l_cupom_cancelado_rec.cartao_valor
 						  + l_cupom_cancelado_rec.a_prazo_valor
 						  + l_cupom_cancelado_rec.convenio_valor
 						  + l_cupom_cancelado_rec.outros_valor
+                          + l_cupom_cancelado_rec.boleto_valor
 						  + l_cupom_cancelado_rec.pagamento_credito_valor;
 
 
@@ -131,52 +142,23 @@ Begin
 			set valor_recebido = 0
 			where conta_receber_id = l_contas_receber_id;
 
-			-->> Lançar contas a pagar com o valor cancelado
-			l_contas_pagar_record.id                      := null;
-			l_contas_pagar_record.data_emissao            := l_cupom_cancelado_rec.data;
-			l_contas_pagar_record.data_vencimento         := l_cupom_cancelado_rec.data;
-			l_contas_pagar_record.data_agendamento        := l_cupom_cancelado_rec.data;
-			l_contas_pagar_record.empresa_id              := p_empresa_id;
-			l_contas_pagar_record.fornecedor_id           := l_fornecedor_id;
-			l_contas_pagar_record.status_id               := l_status_liquidado_id;
-			l_contas_pagar_record.recorrente              := 'Não';
-			l_contas_pagar_record.parcelado               := 'Não';
-			l_contas_pagar_record.valor                   := l_total_cancelado;
-			l_contas_pagar_record.saldo                   := 0;
-			l_contas_pagar_record.centro_custo_id         := l_centro_cancelamento_id;
-			l_contas_pagar_record.categoria_financeira_id := l_categoria_cancelamento_id;
-			l_contas_pagar_record.descricao               := 'Cancelamento de Cupom Fiscal';
-			l_contas_pagar_record.documento               := 'CAN-' || to_char(sysdate);
-
-			insert into contas_pagar values l_contas_pagar_record returning id into l_contas_pagar_id;
-
-
-			-->> Lançar liquidação e movimento(Automático...)
-			l_contas_pagas_record.id                      := null;
-			l_contas_pagas_record.conta_pagar_id          := l_contas_pagar_id;
-			l_contas_pagas_record.data_pagamento          := l_cupom_cancelado_rec.data;
-			l_contas_pagas_record.data_vencimento         := l_cupom_cancelado_rec.data;
-			l_contas_pagas_record.empresa_id              := p_empresa_id;
-			l_contas_pagas_record.fornecedor_id           := l_fornecedor_id;
-			l_contas_pagas_record.valor                   := l_total_cancelado;
-			l_contas_pagas_record.valor_pago              := l_total_cancelado;
-			l_contas_pagas_record.valor_juro              := 0;
-			l_contas_pagas_record.valor_multa             := 0;
-			l_contas_pagas_record.valor_desconto          := 0;
-			l_contas_pagas_record.valor_outros            := 0;
-			l_contas_pagas_record.saldo                   := 0;
-			l_contas_pagas_record.conta_financeira_id     := l_conta_financeira_id;
-			l_contas_pagas_record.forma_pagamento_id      := l_forma_pagamento_id;
-			l_contas_pagas_record.centro_custo_id         := l_centro_cancelamento_id;
-			l_contas_pagas_record.categoria_financeira_id := l_categoria_cancelamento_id;
-			l_contas_pagas_record.descricao               := 'Cancelamento de Cupom Fiscal';
-			l_contas_pagas_record.documento               := l_contas_pagar_record.documento;
-
-			insert into contas_pagas values l_contas_pagas_record;
+			-->> Criar lançamento financeiro com o valor devolvido
+   			CRIAR_LANCAMENTO_FINANCEIRO (
+	            p_conta_financeira_id       =>  l_conta_financeira_id, 
+	            p_data                      =>  sysdate,
+	            p_documento                 =>  p_numero_documento,
+	            p_valor                     =>  l_total_cancelado,
+	            p_centro_custos_id          =>  l_centro_cancelamento_id,
+	            p_categoria_financeira_id   =>  l_categoria_cancelamento_id,
+	            p_contas_pagas_id           =>  null,
+	            p_contas_recebidas_id       =>  null,
+	            p_tipo                      =>  'Cancelamento',
+	            p_empresa_id                =>  p_empresa_id,
+	            p_conta_pagar_id            =>  null,
+	            p_conta_receber_id          =>  l_contas_receber_id
+            );
 
 		end if;
-
 	end if;
-
 End;
 

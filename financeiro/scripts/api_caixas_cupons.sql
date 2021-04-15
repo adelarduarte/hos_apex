@@ -400,7 +400,6 @@ Begin
             if lower(l_caixas_cupons.tipo_lancamento_financeiro) not in('dv', 'cc', 'dc', 'dp', 'ex') then
                 -->> Tratamento de venda em dinheiro
                 if l_caixas_cupons.dinheiro_valor > 0 then
-
                     if l_caixas_cupons.outros_valor > 0 
                         and lower(l_caixas_cupons.pbm) = 'nenhum' then
 
@@ -417,8 +416,23 @@ Begin
                             p_cupom_id            => l_cupom_id,
                             p_documento           => l_caixas_cupons.numero_documento
                         );
-
                 end if;
+
+                -->> Tratamento de venda PIX
+                if l_caixas_cupons.outros_valor > 0
+                        and lower(l_caixas_cupons.tipo_lancamento_financeiro) = 'pix' then
+
+                    l_valor_venda_dinheiro := nvl(l_caixas_cupons.outros_valor, 0);
+
+                    l_cupom_dinheiro := cupom_pix (
+                            p_cliente_id          => l_cliente_id,
+                            p_valor               => l_valor_venda_dinheiro,
+                            p_empresa_id          => l_empresa_id,
+                            p_cupom_id            => l_cupom_id,
+                            p_documento           => l_caixas_cupons.numero_documento
+                        );
+                end if;
+
 
                 -->> Tratamento de venda PBM
                 if l_caixas_cupons.outros_valor > 0 

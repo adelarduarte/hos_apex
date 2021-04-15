@@ -19,6 +19,8 @@ IS
 
     l_lancamento_provisao_id    number;
     l_valor_provisao            number;
+    l_sangria_id                number;
+    l_descricao_sangria         varchar2(255);
     
 Begin
     Select id into l_tipo_lancamento_id
@@ -34,6 +36,23 @@ Begin
         and empresa_id = p_empresa_id;
     else
         l_conta_financeira_id := p_conta_financeira_id;
+    end if;
+    
+    -->> referente a tela nova de sangria, repassando sangria para conta bancaria
+    if p_tipo = 'Sangria' then
+        l_sangria_id := p_conta_receber_id;
+        
+        SELECT MOTIVO_SANGRIA_SUPRIMENTO 
+            INTO L_DESCRICAO_SANGRIA
+            FROM CAIXAS_CUPONS 
+            WHERE ID = l_sangria_id;
+    
+        l_record.valor_saida := 0;
+        l_record.valor_entrada := p_valor;
+        l_record.historico := L_DESCRICAO_SANGRIA || '  Depositado em conta conforme documento de sangria Nº ' || p_documento;
+        l_record.status_lancamento := '';
+        
+    
     end if;
 
     if p_tipo = 'Pagar' then
@@ -90,7 +109,14 @@ Begin
     l_record.conta_recebida_id              := p_contas_recebidas_id;
     l_record.empresa_id                     := p_empresa_id;
     l_record.conta_pagar_id                 := p_conta_pagar_id;
-    l_record.conta_receber_id               := p_conta_receber_id;
+    
+    -->> Variavel p_conta_receber utilizada na pagina 160 para passar valor de sangria, 
+    --   por isso e ignorado o conta_receber_id aqui caso sangria tenha valor
+    IF l_sangria_id is not null then
+        l_record.sangria_id := l_sangria_id;
+    ELSE
+        l_record.conta_receber_id := p_conta_receber_id;
+    END IF;
 
     insert into lancamentos_financeiros values l_record;
 

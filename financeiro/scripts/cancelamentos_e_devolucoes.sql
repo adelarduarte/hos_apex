@@ -24,11 +24,12 @@ Begin
 						p_cupom_devolvido_id => rec.id
 					);
 
-			when lower(rec.tipo_lancamento_financeiro) = 'cc' then
+			when lower(rec.tipo_lancamento_financeiro) in ('cc', 'cpix') then
 				cancelamento_cupom(
-						p_empresa_id         => rec.empresa_id,
-						p_numero_documento   => rec.numero_documento,
-						p_cupom_cancelado_id => rec.id
+						p_empresa_id         		 => rec.empresa_id,
+						p_numero_documento   		 => rec.numero_documento,
+						p_cupom_cancelado_id 		 => rec.id,
+						p_tipo_lancamento_financeiro => rec.tipo_lancamento_financeiro
 					);
 
 			when lower(rec.tipo_lancamento_financeiro) = 'dc' then
@@ -37,7 +38,12 @@ Begin
 						p_numero_documento   => rec.numero_documento,
 						p_cupom_devolvido_id => rec.id					
 					);
+			else
+				null;
+
 		end case;
+
+		dbms_output.put_line(rec.tipo_lancamento_financeiro || ' - ' || rec.numero_documento);
 
 		-->> Atualizar status do cupom 
 		update caixas_cupons

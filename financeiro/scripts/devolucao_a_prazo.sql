@@ -53,6 +53,9 @@ Begin
 	End;
 
 
+	-->> Mudança temporária para não Executar o bloco de código
+	l_cupom_original_rec.id := 0;
+
 	-->> Executar todo o bloco, somente se o cupom original existir
 	if l_cupom_original_rec.id > 0 then
 
@@ -81,6 +84,7 @@ Begin
 		where empresa_id = p_empresa_id;
 
 
+
 		-->> Buscar forma de pagamento 'Dinheiro'
 		select id
 		into l_forma_pagamento_id
@@ -89,20 +93,13 @@ Begin
 		and empresa_id = p_empresa_id;
 
 
-		-->> Buscar fornecedor "Vendas Devolvidas"
-		--  O processo deve cadastrar, se não existir
-		l_fornecedor_id := verificar_fornecedor(
-				p_empresa_id => p_empresa_id,
-				p_nome => 'Vendas Devolvidas'
-			);
-
-
 		-->> Localizar contas a receber, e mudar status
 		--   para cancelado, caso a devolução seja total
 
 		-->> Devolução de venda a prazo pode ter mais de uma parcela.
 		l_total_original := l_cupom_original_rec.dinheiro_valor 
 						  + l_cupom_original_rec.cheque_valor
+                          + l_cupom_original_rec.cheque_pre_valor
 						  + l_cupom_original_rec.cartao_valor
 						  + l_cupom_original_rec.a_prazo_valor
 						  + l_cupom_original_rec.convenio_valor
@@ -111,6 +108,7 @@ Begin
 
 	   l_total_devolvido := l_cupom_devolvido_rec.dinheiro_valor 
 						  + l_cupom_devolvido_rec.cheque_valor
+                          + l_cupom_original_rec.cheque_pre_valor
 						  + l_cupom_devolvido_rec.cartao_valor
 						  + l_cupom_devolvido_rec.a_prazo_valor
 						  + l_cupom_devolvido_rec.convenio_valor
@@ -143,9 +141,9 @@ Begin
 			where cupom_id = l_cupom_original_rec.id;
 		Exception
 			when no_data_found then
-				l_quantidade_parcelas := 0;
+				l_quantidade_parcelas := 1;
 			when others then
-				l_quantidade_parcelas := 0;
+				l_quantidade_parcelas := 1;
 		End;
 
 		-- Verificar se houve crédito para o cliente
@@ -179,52 +177,27 @@ Begin
 
 				end if;
 				
-				-->> Lançar contas a pagar com o valor devolvido
-				l_contas_pagar_record.id                      := null;
-				l_contas_pagar_record.data_emissao            := l_cupom_devolvido_rec.data;
-				l_contas_pagar_record.data_vencimento         := l_cupom_devolvido_rec.data;
-				l_contas_pagar_record.data_agendamento        := l_cupom_devolvido_rec.data;
-				l_contas_pagar_record.empresa_id              := p_empresa_id;
-				l_contas_pagar_record.fornecedor_id           := l_fornecedor_id;
-				l_contas_pagar_record.status_id               := l_status_liquidado_id;
-				l_contas_pagar_record.recorrente              := 'Não';
-				l_contas_pagar_record.parcelado               := 'Não';
-				l_contas_pagar_record.valor                   := l_parcela_devolvida;
-				l_contas_pagar_record.saldo                   := 0;
-				l_contas_pagar_record.centro_custo_id         := l_centro_devolucao_id;
-				l_contas_pagar_record.categoria_financeira_id := l_categoria_devolucao_id;
-				l_contas_pagar_record.descricao               := 'Devolução de Cupom Fiscal';
-				l_contas_pagar_record.documento               := 'DEV-' || to_char(sysdate);
-
-				insert into contas_pagar values l_contas_pagar_record returning id into l_contas_pagar_id;
-
-
-				-->> Lançar liquidação e movimento(Automático...)
-				l_contas_pagas_record.id                      := null;
-				l_contas_pagas_record.conta_pagar_id          := l_contas_pagar_id;
-				l_contas_pagas_record.data_pagamento          := l_cupom_devolvido_rec.data;
-				l_contas_pagas_record.data_vencimento         := l_cupom_devolvido_rec.data;
-				l_contas_pagas_record.empresa_id              := p_empresa_id;
-				l_contas_pagas_record.fornecedor_id           := l_fornecedor_id;
-				l_contas_pagas_record.valor                   := l_parcela_devolvida;
-				l_contas_pagas_record.valor_pago              := l_parcela_devolvida;
-				l_contas_pagas_record.valor_juro              := 0;
-				l_contas_pagas_record.valor_multa             := 0;
-				l_contas_pagas_record.valor_desconto          := 0;
-				l_contas_pagas_record.valor_outros            := 0;
-				l_contas_pagas_record.saldo                   := 0;
-				l_contas_pagas_record.conta_financeira_id     := l_conta_financeira_id;
-				l_contas_pagas_record.forma_pagamento_id      := l_forma_pagamento_id;
-				l_contas_pagas_record.centro_custo_id         := l_centro_devolucao_id;
-				l_contas_pagas_record.categoria_financeira_id := l_categoria_devolucao_id;
-				l_contas_pagas_record.descricao               := 'Devolução de Cupom Fiscal';
-				l_contas_pagas_record.documento               := l_contas_pagar_record.documento;
-
-				insert into contas_pagas values l_contas_pagas_record;
 
 			end loop;
 
 		end if;
+
+		-->> Lançar contas a pagar com o valor devolvido
+		CRIAR_LANCAMENTO_FINANCEIRO (
+	        p_conta_financeira_id       =>  null, 
+	        p_data                      =>  sysdate,
+	        p_documento                 =>  p_numero_documento,
+	        p_valor                     =>  l_total_devolvido,
+	        p_centro_custos_id          =>  l_centro_devolucao_id,
+	        p_categoria_financeira_id   =>  l_categoria_devolucao_id,
+	        p_contas_pagas_id           =>  null,
+	        p_contas_recebidas_id       =>  null,
+	        p_tipo                      =>  'Devolucao',
+	        p_empresa_id                =>  p_empresa_id,
+	        p_conta_pagar_id            =>  null,
+	        p_conta_receber_id          =>  l_contas_receber_id
+	    );
+
 
 	end if;
 
